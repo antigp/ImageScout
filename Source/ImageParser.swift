@@ -90,6 +90,11 @@ struct ImageParser {
   }
   
   private static func parseJPEGData(data: NSData, offset: Int, segment: JPEGHeaderSegment) -> CGSize {
+    //Max get 500 bytes from JPEG
+    if(offset > 500) {
+        return CGSizeZero;
+    }
+    
     if segment == .EOISegment
       || (data.length <= offset + 1)
       || (data.length <= offset + 2) && segment == .SkipSegment
